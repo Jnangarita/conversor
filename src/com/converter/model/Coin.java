@@ -2,9 +2,13 @@ package com.converter.model;
 
 public class Coin {
 	private String typeCoin;
-	private Integer value;
+	private Double value;
 
-	public Coin(String typeCoin, Integer value) {
+	public Coin(String typeCoin, Double value) {
+		if(value <= 0 || typeCoin.isEmpty()) {
+			throw new IllegalArgumentException("El valor o el tipo de moneda "
+											 + "no son validos");
+		}
 		this.typeCoin = typeCoin;
 		this.value = value;
 	}
@@ -17,11 +21,11 @@ public class Coin {
 		this.typeCoin = typeCoin;
 	}
 
-	public Integer getValue() {
+	public Double getValue() {
 		return this.value;
 	}
 
-	public void setValue(Integer value) {
+	public void setValue(Double value) {
 		this.value = value;
 	}
 
