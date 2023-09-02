@@ -31,7 +31,7 @@ public class Coin {
 
 	@Override
 	public String toString() {
-		return String.format("{Tipo de moneda: %s, Valor de la moneda: %d}",
+		return String.format("{Tipo de moneda: %s, Valor de la moneda: %f}",
 				this.typeCoin, this.value);
 	}
 }
