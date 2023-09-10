@@ -21,25 +21,25 @@ public class CoinOption {
 					JOptionPane.PLAIN_MESSAGE, null, optionCoins, optionCoins[0]);
 
 			if (coinsOption.equals(optionCoins[0])) {
-				toForeignValue("Dolares", 4098.46, inputValue);
+				convertCurrency("Dolares", 4098.46, inputValue);
 			} else if (coinsOption.equals(optionCoins[1])) {
-				toForeignValue("Euros", 4424.49, inputValue);
+				convertCurrency("Euros", 4424.49, inputValue);
 			} else if (coinsOption.equals(optionCoins[2])) {
-				toForeignValue("Libras", 5156.27, inputValue);
+				convertCurrency("Libras", 5156.27, inputValue);
 			} else if (coinsOption.equals(optionCoins[3])) {
-				toForeignValue("Yenes", 27.99, inputValue);
+				convertCurrency("Yenes", 27.99, inputValue);
 			} else if (coinsOption.equals(optionCoins[4])) {
-				toForeignValue("Wones coreano", 3.09, inputValue);
+				convertCurrency("Wones coreano", 3.09, inputValue);
 			} else if (coinsOption.equals(optionCoins[5])) {
-				toLocalValue(PESOS, 4098.46, inputValue);
+				convertCurrency(PESOS, 4098.46, inputValue);
 			} else if (coinsOption.equals(optionCoins[6])) {
-				toLocalValue(PESOS, 4424.49, inputValue);
+				convertCurrency(PESOS, 4424.49, inputValue);
 			} else if (coinsOption.equals(optionCoins[7])) {
-				toLocalValue(PESOS, 5156.27, inputValue);
+				convertCurrency(PESOS, 5156.27, inputValue);
 			} else if (coinsOption.equals(optionCoins[8])) {
-				toLocalValue(PESOS, 27.99, inputValue);
+				convertCurrency(PESOS, 27.99, inputValue);
 			} else if (coinsOption.equals(optionCoins[9])) {
-				toLocalValue(PESOS, 3.09, inputValue);
+				convertCurrency(PESOS, 3.09, inputValue);
 			}
 		} catch (NumberFormatException e) {
 			JOptionPane.showMessageDialog(null, "El valor no es válido", "Error", JOptionPane.ERROR_MESSAGE);
@@ -56,16 +56,14 @@ public class CoinOption {
 		return inputValue * coin.getValue();
 	}
 
-	public void toForeignValue(String coinType, Double value, String inputValue) {
-		Coin coin = new Coin(coinType, value);
-		Double convertedValue = localCoinToForeignCoin(coin, Double.parseDouble(inputValue));
-		JOptionPane.showMessageDialog(null, "Tienes $" + formatNumber.format(convertedValue) + " " + coin.getTypeCoin(),
-				"Total", JOptionPane.INFORMATION_MESSAGE);
-	}
-
-	public void toLocalValue(String coinType, Double value, String inputValue) {
-		Coin coin = new Coin(coinType, value);
-		Double convertedValue = foreignCoinToLocalCoin(coin, Double.parseDouble(inputValue));
+	public void convertCurrency(String type, Double value, String inputValue) {
+		Coin coin = new Coin(type, value);
+		Double convertedValue;
+		if(type.equals(PESOS)) {
+			convertedValue = foreignCoinToLocalCoin(coin, Double.parseDouble(inputValue));
+		}else {
+			convertedValue = localCoinToForeignCoin(coin, Double.parseDouble(inputValue));
+		}
 		JOptionPane.showMessageDialog(null, "Tienes $" + formatNumber.format(convertedValue) + " " + coin.getTypeCoin(),
 				"Total", JOptionPane.INFORMATION_MESSAGE);
 	}
